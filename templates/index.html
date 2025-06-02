@@ -1,82 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+  
 <head>
+  <link rel="icon" href="data:,">
   <meta charset="UTF-8">
   <title>28x28 Drawing Box</title>
-  <style>
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(28, 10px);
-      grid-template-rows: repeat(28, 10px);
-      gap: 1px;
-      user-select: none;
-    }
-    .cell {
-      width: 10px;
-      height: 10px;
-      background-color: white;
-      border: 1px solid #ccc;
-    }
-    .cell.active {
-      background-color: black;
-    }
-    button {
-      margin-bottom: 10px;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
+<button type="button" id="recordButton">Record Values</button>
+<button type="button" id="exportButton">Export Values</button>
 <button type="button" id="resetButton">Reset</button>
 <div class="grid" id="drawingGrid"></div>
+<input type="number" id="labelInput" step="1" min="0">
 
-<script>
-  const grid = document.getElementById("drawingGrid"); //get grid
-  const resetButton = document.getElementById("resetButton"); //get button
-  let isDrawing = false; //flag variable
+<div id="statusDiv"></div>
 
-  //flag mousedown as drawing mode aka isDrawing = true
-  document.addEventListener("mousedown", e => {
-    e.preventDefault();
-    isDrawing = true;
-  });
-
-  //mouseup isDrawing = false
-  document.addEventListener ("mouseup", () => {
-    isDrawing = false;
-  });
-
-  for (let i = 0; i < 28; i++) {
-    for (let j = 0; j < 28; j++) {
-      const cell = document.createElement("div")
-
-      cell.className = cell
-
-      cell.id = `cell-${i}-${j}`  
-    }
-  }
-  for (let i = 0; i < 28 * 28; i++) {
-    //create div
-    const cell = document.createElement("div");
-    //style div as cell
-    cell.className = "cell";
-
-    //listener
-    cell.addEventListener("mousedown", () => cell.classList.add("active")); //mousedown on the cell
-    cell.addEventListener("mouseenter", () => {
-      if (isDrawing) cell.classList.add("active"); // mouseenter on the cell
-    });
-
-    //add to grid
-    grid.appendChild(cell);
-  }
-
-  resetButton.addEventListener("click", () => {
-    document.querySelectorAll(".cell.active").forEach(cell => {
-      cell.classList.remove("active");
-    });
-  });
-</script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>

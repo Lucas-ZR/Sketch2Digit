@@ -1,0 +1,19 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(28, 10px);
+    grid-template-rows: repeat(28, 10px);
+    gap: 1px;
+    user-select: none;
+}
+.cell {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+}
+.cell.active {
+    background-color: black;
+}
+button {
+    margin-bottom: 10px;
+}
