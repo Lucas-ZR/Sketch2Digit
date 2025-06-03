@@ -58,9 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
             for (let j = 0; j < 28; j++) {
                 const index = i * 28 + j;
                 const cell = grid.children[index];
-                gridData.push(cell.classList.contains("active" ? 1 : 0)); //? means => if true 1 else 0
+                gridData.push(cell.classList.contains("active") ? 1 : 0); //? means => if true 1 else 0
             }
         }
+        console.log(gridData.slice(0,10));
+        console.log(gridData.length);
 
         //send to server
         fetch("/save_drawing", {
@@ -79,6 +81,21 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log(data.message);
         })
+    });
+
+    exportButton.addEventListener("click", () => {
+        fetch("/export_csv") //no need anything, just trigger the route
+        .then(response => {
+            if (response.status === 200) {
+                console.log("success");
+            } else {
+                console.log("something went wrong");
+            }
+            return response.json();
+        })
+        .then(data => { 
+            console.log(data.message);
+        });
     });
 
 

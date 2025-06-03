@@ -17,15 +17,15 @@ df = pd.DataFrame(columns = cols)
 
 @app.route("/save_drawing", methods=["POST"])
 def append_to_df():
-    try:
-        data = request.get_json()
-        print("Recieved data:",data)
+    data = request.get_json()
 
-        row = data["grid_data"] + [data["label"]]
-        print("row data length:", len(row))
+    row = data["grid_data"] + [data["label"]]
 
-        df.loc[len(df)] = row
-        return jsonify({"message": "data saved!"}), 201
-    except Exception as e:
-        print("Error:", e)
-        return jsonify({"error": str(e)}),500
+    df.loc[len(df)] = row
+    return jsonify({"message": "data saved!"}), 201
+    
+
+@app.route("/export_csv", methods = ["GET"])
+def export_csv():
+    df.to_csv("C:\\Users\\L_W\\Documents\\code\\Sketch2Num\\data\\record.csv")
+    return jsonify({"message": "csv saved!"}), 200
