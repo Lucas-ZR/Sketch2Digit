@@ -1,6 +1,18 @@
 import pandas as pd
 from flask import Flask, render_template, request, jsonify
 
+import sys
+import os
+
+sys.path.append("static/py")
+
+from py_file import Model_CNN
+import torch
+
+model = Model_CNN()
+model.load_state_dict(torch.load("static/py/sketch2num_weights.pth"))
+model.eval()
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -27,5 +39,5 @@ def append_to_df():
 
 @app.route("/export_csv", methods = ["GET"])
 def export_csv():
-    df.to_csv("C:\\Users\\L_W\\Documents\\code\\Sketch2Num\\data\\record.csv")
+    df.to_csv("data/record.csv")
     return jsonify({"message": "csv saved!"}), 200
