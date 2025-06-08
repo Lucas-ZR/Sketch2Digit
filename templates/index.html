@@ -12,10 +12,14 @@
 <button type="button" id="recordButton">Record Values</button>
 <button type="button" id="exportButton">Export Values</button>
 <button type="button" id="resetButton">Reset</button>
+<button type="button" id="runButton">RUN!</button>
+
 <div class="grid" id="drawingGrid"></div>
+
 <input type="number" id="labelInput" step="1" min="0">
 
-<div id="statusDiv"></div>
+<textarea disabled id ="outputField" style="width: 300px; height: 100px; display: block;">sampletext</textarea>
+
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 

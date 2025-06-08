@@ -5,8 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const exportButton = document.getElementById("exportButton");
     const recordButton = document.getElementById("recordButton");
     const labelInput = document.getElementById("labelInput");
-    const statusDiv = document.getElementById("statusDiv");
-    
+    const runButton = document.getElementById("runButton");
+    const outputField = document.getElementById("outputField");
+
+
     let isDrawing = false; //flag variable
     
 
@@ -98,5 +100,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+
+    runButton.addEventListener("click", () => {
+        
+        const gridData = []; //copy of the part above.. just saving the grid..
+
+        for (let i = 0; i < 28; i++) {
+            for (let j = 0; j < 28; j++) {
+                const index = i * 28 + j;
+                const cell = grid.children[index];
+                gridData.push(cell.classList.contains("active") ? 1 : 0); //? means => if true 1 else 0
+            }
+        }
+        console.log(gridData.slice(0,10));
+        console.log(gridData.length);
+
+        //send to server
+        fetch("/run_model", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ grid_data: gridData})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Success:", data);
+            outputField.value = `Prediction: ${data.prediction}`;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            outputField.value = "Error !!!!!!";
+        });
+
+
+    })
 
 });

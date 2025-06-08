@@ -2,16 +2,16 @@ import pandas as pd
 from flask import Flask, render_template, request, jsonify
 
 import sys
-import os
-
 sys.path.append("static/py")
-
 from py_file import Model_CNN
 import torch
 
 model = Model_CNN()
 model.load_state_dict(torch.load("static/py/sketch2num_weights.pth"))
 model.eval()
+
+import numpy as np
+import torch
 
 app = Flask(__name__)
 
@@ -23,9 +23,7 @@ cols = []
 for i in range(0,28*28):
     cols.append(str(i))
 cols.append("label")
-
 df = pd.DataFrame(columns = cols)
-
 
 @app.route("/save_drawing", methods=["POST"])
 def append_to_df():
@@ -41,3 +39,23 @@ def append_to_df():
 def export_csv():
     df.to_csv("data/record.csv")
     return jsonify({"message": "csv saved!"}), 200
+
+
+@app.route("/run_model", methods = ["POST"])
+def run_model():
+    data = request.get_json()
+
+    row = data["grid_data"]
+
+    sketch = np.array(row).reshape(28,28)
+
+    sketch_tensor = torch.tensor(sketch, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+
+    pred = model(sketch_tensor)
+    _, prediction = torch.max(pred,1)
+    prediction_value = prediction.item()
+
+    return jsonify({"prediction" : prediction_value, "message" : "success"}), 202
+
+
+
