@@ -52,10 +52,10 @@ def run_model():
     sketch_tensor = torch.tensor(sketch, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
 
     pred = model(sketch_tensor)
-    _, prediction = torch.max(pred,1)
-    prediction_value = prediction.item()
+    probabilities = torch.softmax(pred.detach(), dim=1)[0]
+    round_prob = probabilities.numpy().round(2).tolist()
 
-    return jsonify({"prediction" : prediction_value, "message" : "success"}), 202
+    return jsonify({"prediction" : round_prob, "message" : "success"}), 202
 
 
 

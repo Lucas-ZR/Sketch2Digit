@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             console.log("Success:", data);
-            outputField.value = `Prediction: ${data.prediction}`;
+            outputField.value = `Prediction: [${data.prediction.join(', ')}]`;
+            updateChart(data.prediction);           
         })
         .catch(error => {
             console.error("Error:", error);
@@ -133,5 +134,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     })
+
+    //plot
+    const ctx = document.getElementById('myChart').getContext('2d');
+       const chart = new Chart(ctx, {
+           type: 'bar',
+           data: {
+               labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+               datasets: [{
+                    label : "Prediction Distribuition",
+                   data: [0.6, 0, 0.8, 0, 0, 0, 0, 0, 0, 0],
+                   backgroundColor: 'rgba(54, 162, 235, 0.6)'
+               }]
+           },
+            options: {
+                    responsive: false,
+                    plugins: { legend: { display: false }, tooltip: {enabled : false} },
+                    scales: {
+                        x: {grid: {display: false}},
+                        y: { beginAtZero: true, max: 1 ,grid : {display: false}}
+                    }
+                }
+       });
+
+       function updateChart(probabilities) {
+           chart.data.datasets[0].data = probabilities;
+           chart.update();
+       };
 
 });
