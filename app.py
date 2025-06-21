@@ -19,6 +19,30 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+
+@app.route("/run_model", methods = ["POST"])
+def run_model():
+    data = request.get_json()
+
+    row = data["grid_data"]
+
+    sketch = np.array(row).reshape(28,28)
+
+    sketch_tensor = torch.tensor(sketch, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+
+    pred = model(sketch_tensor)
+    probabilities = torch.softmax(pred.detach(), dim=1)[0]
+    round_prob = probabilities.numpy().round(2).tolist()
+
+    return jsonify({"prediction" : round_prob, "message" : "success"}), 202
+
+@app.route("/developer")
+def render_dev():
+    return render_template("index_dev.html")
+
+
+#routes used in development (buttons only on /developer)
+
 cols = []
 for i in range(0,28*28):
     cols.append(str(i))
@@ -39,23 +63,3 @@ def append_to_df():
 def export_csv():
     df.to_csv("data/record.csv")
     return jsonify({"message": "csv saved!"}), 200
-
-
-@app.route("/run_model", methods = ["POST"])
-def run_model():
-    data = request.get_json()
-
-    row = data["grid_data"]
-
-    sketch = np.array(row).reshape(28,28)
-
-    sketch_tensor = torch.tensor(sketch, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
-
-    pred = model(sketch_tensor)
-    probabilities = torch.softmax(pred.detach(), dim=1)[0]
-    round_prob = probabilities.numpy().round(2).tolist()
-
-    return jsonify({"prediction" : round_prob, "message" : "success"}), 202
-
-
-

@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const grid = document.getElementById("drawingGrid"); //get grid
     const resetButton = document.getElementById("resetButton"); //get button
+    const exportButton = document.getElementById("exportButton");
+    const recordButton = document.getElementById("recordButton");
+    const labelInput = document.getElementById("labelInput");
     const runButton = document.getElementById("runButton");
-
 
 
     let isDrawing = false; //flag variable
@@ -47,6 +49,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    //save grid
+    recordButton.addEventListener("click", () => {
+        const label = labelInput.value.trim() || "unlabeled";
+
+        const gridData = [];
+
+        for (let i = 0; i < 28; i++) {
+            for (let j = 0; j < 28; j++) {
+                const index = i * 28 + j;
+                const cell = grid.children[index];
+                gridData.push(cell.classList.contains("active") ? 1 : 0); //? means => if true 1 else 0
+            }
+        }
+        console.log(gridData.slice(0,10));
+        console.log(gridData.length);
+
+        //send to server
+        fetch("/save_drawing", {
+            method: "POST",
+            headers: {"Content-Type" : "application/json" },
+            body: JSON.stringify({ grid_data: gridData, label: label})
+        })
+        .then(response => {
+            if (response.status === 201) {
+                console.log("sucess");
+            } else {
+                console.log("something went wrong");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.message);
+        })
+    });
+
+    exportButton.addEventListener("click", () => {
+        fetch("/export_csv") //no need anything, just trigger the route
+        .then(response => {
+            if (response.status === 200) {
+                console.log("success");
+            } else {
+                console.log("something went wrong");
+            }
+            return response.json();
+        })
+        .then(data => { 
+            console.log(data.message);
+        });
+    });
+
 
     runButton.addEventListener("click", () => {
         
@@ -80,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
-    
     //plot
     const ctx = document.getElementById('myChart').getContext('2d');
        const chart = new Chart(ctx, {

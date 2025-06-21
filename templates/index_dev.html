@@ -5,20 +5,23 @@
   <link rel="icon" href="data:,">
   <meta charset="UTF-8">
   <title>28x28 Drawing Box</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style_dev.css') }}">
 </head>
 <body>
 
-
+<button type="button" id="recordButton">Record Values</button>
+<button type="button" id="exportButton">Export Values</button>
 <button type="button" id="resetButton">Reset</button>
 <button type="button" id="runButton">RUN!</button>
 
 <div class="grid" id="drawingGrid"></div>
 
+<input type="number" id="labelInput" step="1" min="0">
+
 <canvas id="myChart" width="400" height="200"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script_dev.js') }}"></script>
 
 
 </body>
