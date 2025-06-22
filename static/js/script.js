@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
                datasets: [{
                     label : "Prediction Distribuition",
-                   data: [0.6, 0, 0.8, 0, 0, 0, 0, 0, 0, 0],
+                   data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                    backgroundColor: 'rgba(54, 162, 235, 0.6)'
                }]
            },

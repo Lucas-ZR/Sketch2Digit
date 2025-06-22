@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <title>28x28 Drawing Box</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!--easyest way I foind to add the logos-->
 </head>
 
 
@@ -17,14 +18,30 @@
 
   <div class="chart-section">
     <button type="button" id="runButton">Run Model</button>
-    <canvas id="myChart" width="400" height="200"></canvas>
+    <canvas id="myChart" width="480" height="240"></canvas>
+  </div>
+
+  <div class="description">
+      <p>A convolutional neural network that recognizes handwritten digits (trained on MNIST).</p>
+      <br>
+      <p>Learn more about the implementation:</p>
+      <br>
+      <div class="links">
+        <a href="https://github.com/yourusername/sketch2num" style="margin-right: 20px;">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://medium.com/@yourusername/building-sketch2num">
+          <i class="fab fa-medium"></i> Medium
+        </a>
+      </div>
   </div>
 
 
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 
 
-</html>
+</html> 
