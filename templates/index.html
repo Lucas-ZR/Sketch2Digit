@@ -7,19 +7,24 @@
   <title>28x28 Drawing Box</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
+
 <body>
+  <div class="grid-section">
+    <button type="button" id="resetButton">Clear</button>
+    <div class="grid" id="drawingGrid"></div>
+  </div>
+
+  <div class="chart-section">
+    <button type="button" id="runButton">Run Model</button>
+    <canvas id="myChart" width="400" height="200"></canvas>
+  </div>
 
 
-<button type="button" id="resetButton">Reset</button>
-<button type="button" id="runButton">RUN!</button>
-
-<div class="grid" id="drawingGrid"></div>
-
-<canvas id="myChart" width="400" height="200"></canvas>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
+
+
 </html>
