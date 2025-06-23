@@ -1,6 +1,9 @@
 import pandas as pd
 from flask import Flask, render_template, request, jsonify
 
+import numpy as np
+
+import os
 import sys
 sys.path.append("static/py")
 from py_file import Model_CNN
@@ -9,9 +12,6 @@ import torch
 model = Model_CNN()
 model.load_state_dict(torch.load("static/py/sketch2num_weights.pth"))
 model.eval()
-
-import numpy as np
-import torch
 
 app = Flask(__name__)
 
@@ -63,3 +63,8 @@ def append_to_df():
 def export_csv():
     df.to_csv("data/record.csv")
     return jsonify({"message": "csv saved!"}), 200
+
+
+#needs this to run on server
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
