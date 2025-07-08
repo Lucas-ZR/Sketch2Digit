@@ -23,7 +23,7 @@ The model was trained on binarized MNIST data (converting grayscale to binary) t
 
 ## Running locally
 ```bash
-git clone [repository-url]
+git clone https://github.com/Lucas-ZR/Sketch2Digit
 cd sketch2num
 pip install -r requirements.txt
 flask run
