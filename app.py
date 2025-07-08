@@ -1,6 +1,9 @@
 import pandas as pd
 from flask import Flask, render_template, request, jsonify
 
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
 import numpy as np
 
 import os
@@ -15,12 +18,21 @@ model.eval()
 
 app = Flask(__name__)
 
+#minimal rate limiting
+limiter = Limiter(
+    app = app,
+    key_func = get_remote_address,
+    default_limits=["100 per hour"]
+)
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
 @app.route("/run_model", methods = ["POST"])
+@limiter.limit("10 per minute")
 def run_model():
     data = request.get_json()
 
@@ -50,6 +62,7 @@ cols.append("label")
 df = pd.DataFrame(columns = cols)
 
 @app.route("/save_drawing", methods=["POST"])
+@limiter.limit("5 per minute")
 def append_to_df():
     data = request.get_json()
 
@@ -60,6 +73,7 @@ def append_to_df():
     
 
 @app.route("/export_csv", methods = ["GET"])
+@limiter.limit("1 per minute")
 def export_csv():
     df.to_csv("data/record.csv")
     return jsonify({"message": "csv saved!"}), 200
