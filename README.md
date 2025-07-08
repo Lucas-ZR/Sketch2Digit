@@ -1,4 +1,4 @@
-# Sketch2Num
+# Sketch2Digit
 
 A web application that recognizes handwritten digits using a CNN trained on MNIST data.
 
