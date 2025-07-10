@@ -2,6 +2,9 @@
 
 A web application that recognizes handwritten digits using a CNN trained on MNIST data.
 
+## Live Demo
+https://sketch2digit.up.railway.app/
+
 ## Features
 - Interactive 28x28 drawing canvas
 - Real-time digit prediction with confidence scores
@@ -32,6 +35,3 @@ Add ```/developer``` on the url for import and export functions
 
 ## Architecture
 Simple CNN: Conv2D → ReLU → MaxPool → Conv2D → ReLU → MaxPool → FC → ReLU → FC
-
-## Live Demo
-https://sketch2digit.up.railway.app/
