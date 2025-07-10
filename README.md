@@ -28,10 +28,10 @@ cd sketch2num
 pip install -r requirements.txt
 flask run
 ```
-Add ``/developer``` on the url for import and export functions
+Add ```/developer``` on the url for import and export functions
 
 ## Architecture
 Simple CNN: Conv2D → ReLU → MaxPool → Conv2D → ReLU → MaxPool → FC → ReLU → FC
 
 ## Live Demo
-[URL](https://sketch2digit.up.railway.app/)
+https://sketch2digit.up.railway.app/
