@@ -28,7 +28,7 @@ cd sketch2num
 pip install -r requirements.txt
 flask run
 ```
-Use ```/dev for dev route```
+Add ``/developer``` on the url for import and export functions
 
 ## Architecture
 Simple CNN: Conv2D → ReLU → MaxPool → Conv2D → ReLU → MaxPool → FC → ReLU → FC
