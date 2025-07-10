@@ -28,9 +28,10 @@ cd sketch2num
 pip install -r requirements.txt
 flask run
 ```
+Use ```bash /dev for dev route```
 
 ## Architecture
 Simple CNN: Conv2D → ReLU → MaxPool → Conv2D → ReLU → MaxPool → FC → ReLU → FC
 
 ## Live Demo
-URL
+[URL](https://sketch2digit.up.railway.app/)
