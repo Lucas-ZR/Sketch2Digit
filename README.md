@@ -22,13 +22,13 @@ The model was trained on binarized MNIST data (converting grayscale to binary) t
 3. View confidence scores in the bar chart
 
 ## Running locally
-```bash
+```
 git clone https://github.com/Lucas-ZR/Sketch2Digit
 cd sketch2num
 pip install -r requirements.txt
 flask run
 ```
-Use ```bash /dev for dev route```
+Use ```/dev for dev route```
 
 ## Architecture
 Simple CNN: Conv2D → ReLU → MaxPool → Conv2D → ReLU → MaxPool → FC → ReLU → FC
