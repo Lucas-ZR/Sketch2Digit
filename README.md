@@ -1,6 +1,9 @@
-# Sketch2Num
+# Sketch2Digit
 
 A web application that recognizes handwritten digits using a CNN trained on MNIST data.
+
+## Live Demo
+https://sketch2digit.up.railway.app/
 
 ## Features
 - Interactive 28x28 drawing canvas
@@ -22,15 +25,13 @@ The model was trained on binarized MNIST data (converting grayscale to binary) t
 3. View confidence scores in the bar chart
 
 ## Running locally
-```bash
-git clone [repository-url]
-cd sketch2num
+```
+git clone https://github.com/Lucas-ZR/Sketch2Digit
+cd sketch2digit
 pip install -r requirements.txt
 flask run
 ```
+Add ```/developer``` on the url for import and export functions
 
 ## Architecture
 Simple CNN: Conv2D → ReLU → MaxPool → Conv2D → ReLU → MaxPool → FC → ReLU → FC
-
-## Live Demo
-URL
